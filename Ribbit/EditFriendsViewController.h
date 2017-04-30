@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong) User *currentUser;
 
-- (BOOL)isFriend:(User *)user index:(NSUInteger)indexPath;
+- (BOOL)isFriend:(NSString *)userName;
 
 @end

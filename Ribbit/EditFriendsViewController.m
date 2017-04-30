@@ -53,7 +53,7 @@ int deleteFrom;
     
 
     
-    if ([self doesContain:user.username]) {
+    if ([self isFriend:user.username]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     else {
@@ -63,16 +63,7 @@ int deleteFrom;
     return cell;
 }
 
--(BOOL)doesContain:(NSString *) userName{
-    for (int i = 0; i < [self.currentUser.friends count]; i++) {
-        NSString *name = [[self.currentUser.friends objectAtIndex:i] username];
-        if (name == userName) {
-            deleteFrom = i;
-            return true;
-        }
-    }
-    return false;
-}
+
 
 #pragma mark - Table view delegate
 
@@ -84,11 +75,12 @@ int deleteFrom;
   
     User *user = [self.allUsers objectAtIndex:indexPath.row];
     
-    if ([self doesContain:user.username] && cell.accessoryType == UITableViewCellAccessoryCheckmark) {
+    //Bug Fix 3
+    if ([self isFriend:user.username] && cell.accessoryType == UITableViewCellAccessoryCheckmark) {
         cell.accessoryType = UITableViewCellAccessoryNone;
         [self.currentUser removeFriend:user index:deleteFrom];
     }
-    else if (cell.accessoryType != UITableViewCellAccessoryCheckmark && ([self doesContain:user.username] == false)) {
+    else if (cell.accessoryType != UITableViewCellAccessoryCheckmark && ([self isFriend:user.username] == false)) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         [self.currentUser addFriend:user];
     }    
@@ -96,13 +88,16 @@ int deleteFrom;
 
 #pragma mark - Helper methods
 
-//- (BOOL)isFriend:(User *)user index:(NSUInteger)indexPath{
-//    
-//  if (indexPath < [self.currentUser.friends count] && [[self.currentUser.friends objectAtIndex:indexPath] username] == user.username) {
-//      return true;
-//  }else{
-//      return false;
-//  }
-//}
+//Bug Fix 4
+-(BOOL)isFriend:(NSString *) userName{
+    for (int i = 0; i < [self.currentUser.friends count]; i++) {
+        NSString *name = [[self.currentUser.friends objectAtIndex:i] username];
+        if (name == userName) {
+            deleteFrom = i;
+            return true;
+        }
+    }
+    return false;
+}
 
 @end

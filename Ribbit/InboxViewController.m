@@ -22,7 +22,8 @@
 {
     [super viewDidLoad];
 
-    self.moviePlayer = [[MPMoviePlayerController alloc] init];
+    self.moviePlayer = [[AVPlayerViewController alloc] init];
+    self.player = [[AVPlayer alloc]init];
     
     User *currentUser = [User currentUser];
     if (currentUser) {
@@ -82,13 +83,29 @@
     else {
         // File type is video
         File *videoFile = self.selectedMessage.file;
-        self.moviePlayer.contentURL = videoFile.fileURL;
-        [self.moviePlayer prepareToPlay];
-        [self.moviePlayer thumbnailImageAtTime:0 timeOption:MPMovieTimeOptionNearestKeyFrame];
+        
+        //Get Thumbnail from start of video
+        AVAsset *asset = [AVAsset assetWithURL:videoFile.fileURL];
+        CMTime thumbnailTime = [asset duration];
+        thumbnailTime.value = 0;
+        
+        //  Get image from the video at the given time
+        AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+        
+        CGImageRef imageRef = [imageGenerator copyCGImageAtTime:thumbnailTime actualTime:NULL error:NULL];
+        
+        UIImage *thumbnail = [UIImage imageWithCGImage:imageRef];
+        CGImageRelease(imageRef);
+        
+        self.player = [self.player initWithURL:videoFile.fileURL];
+        _moviePlayer.player = self.player;
+        [self.player play];
         
         // Add it to the view controller so we can see it
+        self.moviePlayer.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self.view addSubview:self.moviePlayer.view];
-        [self.moviePlayer setFullscreen:YES animated:YES];
+        [self presentViewController:self.moviePlayer animated:YES completion:nil];
+        
     }
     
     // Delete it!

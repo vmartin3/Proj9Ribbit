@@ -143,10 +143,18 @@
 
 - (IBAction)send:(id)sender {
     if (self.image == nil && [self.videoFilePath length] == 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Try again!"
-                                                            message:@"Please capture or select a photo or video to share!"
-                                                           delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
+        UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"Try again!" message:@"Please capture or select a photo or video to share!" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* cancelButton = [UIAlertAction
+                                       actionWithTitle:@"Ok"
+                                       style:UIAlertActionStyleDefault
+                                       handler:^(UIAlertAction * action) {
+                                       }];
+        
+        [alertView addAction:cancelButton];
+        
+        [self presentViewController:alertView animated:YES completion:nil];
+        
         [self presentViewController:self.imagePicker animated:NO completion:nil];
     }
     else {
@@ -177,10 +185,18 @@
     File *file = [File fileWithName:fileName data:fileData];
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred!"
-                                                                message:@"Please try sending your message again."
-                                                               delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alertView show];
+            UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"An error occurred!" message:@"Please try sending your message again." preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* cancelButton = [UIAlertAction
+                                           actionWithTitle:@"Ok"
+                                           style:UIAlertActionStyleDefault
+                                           handler:^(UIAlertAction * action) {
+                                           }];
+            
+            [alertView addAction:cancelButton];
+            
+            [self presentViewController:alertView animated:YES completion:nil];
+            
         }
         else {
             Message *message = [[Message alloc] init];
@@ -192,10 +208,17 @@
           
             [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (error) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred!"
-                                                                        message:@"Please try sending your message again."
-                                                                       delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alertView show];
+                    UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"An error occurred!" message:@"Please try sending your message again." preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction* cancelButton = [UIAlertAction
+                                                   actionWithTitle:@"Ok"
+                                                   style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                   }];
+                    
+                    [alertView addAction:cancelButton];
+                    
+                    [self presentViewController:alertView animated:YES completion:nil];
                 }
                 else {
                     // Everything was successful!

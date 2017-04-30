@@ -43,6 +43,7 @@ static NSInteger identifier = 1;
   [self.friendsMutable addObject:friend];
 }
 
+//Bug Fix 4
 - (void)removeFriend:(User *)friend index:(NSInteger)indexPath {
     if (indexPath < [_friendsMutable count]){
         [self.friendsMutable removeObjectAtIndex:indexPath];
