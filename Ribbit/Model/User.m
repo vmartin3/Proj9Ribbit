@@ -43,10 +43,11 @@ static NSInteger identifier = 1;
   [self.friendsMutable addObject:friend];
 }
 
-- (void)removeFriend:(User *)friend {
-  if ([self.friends containsObject:friend]) {
-    [self.friendsMutable removeObject:friend];
-  }
+- (void)removeFriend:(User *)friend index:(NSInteger)indexPath {
+    if (indexPath < [_friendsMutable count]){
+        [self.friendsMutable removeObjectAtIndex:indexPath];
+    }
+    
 }
 
 - (NSArray*) friends {

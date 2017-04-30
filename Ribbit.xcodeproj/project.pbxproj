@@ -276,7 +276,7 @@
 				ORGANIZATIONNAME = Treehouse;
 				TargetAttributes = {
 					8DCDADA717A6B3CC008AAA28 = {
-						DevelopmentTeam = R9E84DX62H;
+						DevelopmentTeam = Z394YH8B5F;
 					};
 				};
 			};
@@ -420,6 +420,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Z394YH8B5F;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -439,6 +440,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Z394YH8B5F;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

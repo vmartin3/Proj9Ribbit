@@ -19,7 +19,7 @@
 + (instancetype)userWithUsername:(NSString*)username;
 
 - (void)addFriend:(User *)friend;
-- (void)removeFriend:(User *)friend;
+- (void)removeFriend:(User *)friend index:(NSInteger)indexPath;
 - (NSArray*) friends;
 
 @end

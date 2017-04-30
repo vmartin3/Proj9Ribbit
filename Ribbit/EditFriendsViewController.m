@@ -9,6 +9,7 @@
 #import "User.h"
 #import "App.h"
 
+int deleteFrom;
 @interface EditFriendsViewController ()
 
 @end
@@ -50,7 +51,9 @@
     User *user = [self.allUsers objectAtIndex:indexPath.row];
     cell.textLabel.text = user.username;
     
-    if ([self isFriend:user]) {
+
+    
+    if ([self doesContain:user.username]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     else {
@@ -58,6 +61,17 @@
     }
     
     return cell;
+}
+
+-(BOOL)doesContain:(NSString *) userName{
+    for (int i = 0; i < [self.currentUser.friends count]; i++) {
+        NSString *name = [[self.currentUser.friends objectAtIndex:i] username];
+        if (name == userName) {
+            deleteFrom = i;
+            return true;
+        }
+    }
+    return false;
 }
 
 #pragma mark - Table view delegate
@@ -70,11 +84,11 @@
   
     User *user = [self.allUsers objectAtIndex:indexPath.row];
     
-    if ([self isFriend:user]) {
+    if ([self doesContain:user.username] && cell.accessoryType == UITableViewCellAccessoryCheckmark) {
         cell.accessoryType = UITableViewCellAccessoryNone;
-        [self.currentUser removeFriend:user];
+        [self.currentUser removeFriend:user index:deleteFrom];
     }
-    else {
+    else if (cell.accessoryType != UITableViewCellAccessoryCheckmark && ([self doesContain:user.username] == false)) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         [self.currentUser addFriend:user];
     }    
@@ -82,8 +96,13 @@
 
 #pragma mark - Helper methods
 
-- (BOOL)isFriend:(User *)user {
-  return [self.currentUser.friends containsObject:user];
-}
+//- (BOOL)isFriend:(User *)user index:(NSUInteger)indexPath{
+//    
+//  if (indexPath < [self.currentUser.friends count] && [[self.currentUser.friends objectAtIndex:indexPath] username] == user.username) {
+//      return true;
+//  }else{
+//      return false;
+//  }
+//}
 
 @end

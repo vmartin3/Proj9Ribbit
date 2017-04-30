@@ -49,6 +49,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     User *user = [self.friends objectAtIndex:indexPath.row];
+    
     cell.textLabel.text = user.username;
     
     return cell;
