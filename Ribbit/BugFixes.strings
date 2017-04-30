@@ -9,8 +9,10 @@
 Bug 1
 -Set the Main.interface in deployment Info
 Bug 2
+-Looked in the MainStoryboard for conflicting contraints
 -Removed constraint that was aligning the two buttons bottom constraints together
 Bug 3
+-Used breakpoints to find where friends are being added to the array
 -Updated if statement in EditFriendsViewController.m to make sure it is not adding users to friends array twice
 //else if (cell.accessoryType != UITableViewCellAccessoryCheckmark && ([self isFriend:user.username] == false)) {
 //    cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -20,6 +22,6 @@ Bug 4
 -Updated removeFriend method in User.m. Used removeObjectAtIndexPath instead of just removeObject. removeObject would not actually remove the user from the mutable array
 -Updated isFriend method in EditFriendsViewController.m. Previously, contrainsObject was being used to see if a certain user was in the friends array. That method was checking against reference/pointer types rather than the value of the object so it was not picking up friends that were actually in the array.
 Bug 5
--Ran the leaks instrument and did not find any leaks
+-Used the leaks instrument to assess memory management
 Bug 6
--Updated all depricated APIs without changing functionality. Imported the AVKit.frameworks and AVFoundation.frameworks
+-Updated all depricated APIs without changing functionality. Imported the AVKit.frameworks and AVFoundation.frameworks and used UIAlertView
